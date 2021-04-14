@@ -1,0 +1,14 @@
+@model List<GroupViewModel>
+
+@{
+    ViewBag.Title = "Group Index";
+    int counter = 0;}
+
+@foreach(var group in Model) {
+    <section>
+        @{int disp = counter + 1;}
+        @disp: @group.Name <a asp-controller="Groups" asp-action="Edit" asp-route-id=@counter>Edit</a>
+        @{counter++;}
+    </section>
+}
+<a asp-controller="Groups" asp-action="Create">Create</a>

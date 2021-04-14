@@ -1,0 +1,14 @@
+@model List<UserViewModel>
+
+@{
+    ViewBag.Title = "User Index";
+    int counter = 0;}
+
+@foreach(var user in Model) {
+    <section>
+        @{int disp = counter + 1;}
+        @disp: @user.FirstName @user.LastName <a asp-controller="Users" asp-action="Edit" asp-route-id=@counter>Edit</a>
+        @{counter++;}
+    </section>
+}
+<a asp-controller="Users" asp-action="Create">Create</a>
