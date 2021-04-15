@@ -1,18 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using SecretSanta.Web.Data;
 using SecretSanta.Web.ViewModels;
 
-namespace UserGroup.Web.Controllers
+namespace SecretSanta.Web.Controllers
 {
-    public class UsersController : Controller
-    {
-        static List<UserViewModel> Users = new List<UserViewModel>{
-            new UserViewModel {FirstName = "Inigo", LastName = "Montoya"},
-            new UserViewModel {FirstName = "Princess", LastName = "Buttercup"},
-        };
+    public class UsersController : Controller{
+    
         public IActionResult Index()
         {
-            return View(Users);
+            return View(MockData.Users);
         }
 
         public IActionResult Create()
@@ -25,7 +22,7 @@ namespace UserGroup.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Users.Add(viewModel);
+                MockData.Users.Add(viewModel);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -34,8 +31,7 @@ namespace UserGroup.Web.Controllers
 
         public IActionResult Edit(int id)
         {
-            Users[id].Id = id;
-            return View(Users[id]);
+            return View(MockData.Users[id]);
         }
 
         [HttpPost]
@@ -43,11 +39,18 @@ namespace UserGroup.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Users[viewModel.Id] = viewModel;
+                MockData.Users[viewModel.Id] = viewModel;
                 return RedirectToAction(nameof(Index));
             }
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            MockData.Users.RemoveAt(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

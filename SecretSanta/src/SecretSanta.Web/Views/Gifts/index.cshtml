@@ -8,6 +8,7 @@
     <section>
         @{int disp = counter + 1;}
         @disp: @Gift.Title <a asp-controller="Gifts" asp-action="Edit" asp-route-id=@counter>Edit</a>
+        <form asp-controller="Gifts" asp-action="Delete" asp-route-id=@counter method="post"><button>Delete</button></form>
         <br>Description: @Gift.Description
         <br>URL: <a href=@Gift.URL>@Gift.URL</a>
         <br>UserID: @Gift.UserID

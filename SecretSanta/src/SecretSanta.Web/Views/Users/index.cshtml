@@ -8,6 +8,7 @@
     <section>
         @{int disp = counter + 1;}
         @disp: @user.FirstName @user.LastName <a asp-controller="Users" asp-action="Edit" asp-route-id=@counter>Edit</a>
+        <form asp-controller="Users" asp-action="Delete" asp-route-id=@counter method="post"><button>Delete</button></form>
         @{counter++;}
     </section>
 }

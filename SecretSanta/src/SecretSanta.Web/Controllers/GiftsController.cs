@@ -1,22 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using SecretSanta.Web.ViewModels;
+using SecretSanta.Web.Data;
 
 namespace SecretSanta.Web.Controllers
 {
     public class GiftsController : Controller
     {
-        static List<GiftViewModel> Gifts = new List<GiftViewModel>{
-            new GiftViewModel {Title = "The Princess Bride", 
-            Description = "A classic children's novel, but really anyone can enjoy it.",
-            URL = "https://www.amazon.com/Princess-Bride-Deluxe-Morgensterns-Adventure/dp/1328948854/ref=sr_1_2?dchild=1&keywords=the+princess+bride&qid=1618381069&sr=8-2",
-            UserID = 1,
-            Priority = 1,
-            },
-        };
+
         public IActionResult Index()
         {
-            return View(Gifts);
+            return View(MockData.Gifts);
         }
 
         public IActionResult Create()
@@ -29,7 +23,7 @@ namespace SecretSanta.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Gifts.Add(viewModel);
+                MockData.Gifts.Add(viewModel);
                 return RedirectToAction(nameof(Index));
             }
 
@@ -38,8 +32,7 @@ namespace SecretSanta.Web.Controllers
 
         public IActionResult Edit(int id)
         {
-            Gifts[id].Id = id;
-            return View(Gifts[id]);
+            return View(MockData.Gifts[id]);
         }
 
         [HttpPost]
@@ -47,11 +40,18 @@ namespace SecretSanta.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Gifts[viewModel.Id] = viewModel;
+                MockData.Gifts[viewModel.Id] = viewModel;
                 return RedirectToAction(nameof(Index));
             }
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            MockData.Gifts.RemoveAt(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
