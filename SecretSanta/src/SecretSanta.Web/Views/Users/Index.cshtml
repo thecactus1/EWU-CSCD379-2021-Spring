@@ -1,11 +1,23 @@
 @model List<UserViewModel>
 
-@{int counter = 0;}
+@{int counter = 0;
+ViewBag.Title = "User Index";}
 
-@foreach(var userViewModel in Model) {
+<section class="flex flex-wrap">
+    @foreach(var user in Model) {
+        <div class="w-1/3">
+            <a asp-controller="users" asp-action="Edit" asp-route-id=@counter>
+                <section class="border-gray-500 border-2 p-6 m-5 rounded-lg">
+                    <button>@user.FirstName @user.LastName Edit</button>
+                    <form asp-controller="users" asp-action="Delete" asp-route-id=@counter method="post"><button onclick="return confirm('You are about to delete @user.FirstName @user.LastName. Are you sure you want to do this?');"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+                    @{counter++;}
+                </section>
+            </a>
+        </div>
+    }
+</section>
+<a asp-action="Create">
     <section>
-        @userViewModel.FirstName @userViewModel.LastName <a asp-action="Edit" asp-route-id=@counter>Edit</a><form asp-action="Delete" asp-route-id=@counter method="post"><button>X</button></form>
-        @{counter++;}
+        <p class="border-gray-500 border-2 p-6 m-5 rounded-lg">Create</p>
     </section>
-}
-<a asp-action="Create">Create</a>
+</a>

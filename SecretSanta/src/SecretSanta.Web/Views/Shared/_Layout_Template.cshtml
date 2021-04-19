@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>UserGroup - @ViewBag.Title</title>
+    <title>Secret Santa - @ViewBag.Title</title>
     <!-- Stylesheets -->
     <% for (var filename in htmlWebpackPlugin.files.css) { %>
     <link href="~<%= htmlWebpackPlugin.files.css[filename] %>" rel="stylesheet" />
@@ -10,15 +10,6 @@
     <!-- End Stylesheets -->
 </head>
 <body>
-    <nav>
-        <ul>
-            <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-            <li><a asp-controller="Users" asp-action="Index">Users</a></li>
-            <li><a asp-controller="Groups" asp-action="Index">Groups</a></li>
-            <li><a asp-controller="Gifts" asp-action="Index">Gifts</a></li>
-        </ul>
-    </nav>
-<body>    
     <header class="bg-blue-500 text-white flex flex-col sm:flex-row justify-between p-6" x-data="SecretSanta.setupNav()">
         <div class="flex flex-row justify-between">
             <a class="text-2xl leading-10" asp-controller="Home" asp-action="Index">Secret Santa</a>
@@ -42,4 +33,4 @@
     <% } %>
     <!-- End Scripts -->
 </body>
-</html>
+</html> 
