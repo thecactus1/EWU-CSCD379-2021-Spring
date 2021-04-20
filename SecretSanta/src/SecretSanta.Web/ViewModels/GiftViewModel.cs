@@ -9,14 +9,13 @@ namespace SecretSanta.Web.ViewModels
         public int Id { get; set; }
 
         [Display(Name="Description")]
-        public string Description { get; set; } = "";
+        public string? Description { get; set; } = "";
 
         [Display(Name="Url")]
-        public string Url { get; set; } = "";
+        public string? Url { get; set; } = "";
         [Required]
         [Display(Name="Title")]
         public string Title { get; set; } = "";
-        [Required]
         [Display(Name="Priority")]
         public int Priority { get; set; }
         [Required]

@@ -1,9 +1,10 @@
 @model UserViewModel
 
+ViewBag.Title = "User Create";}
 <section class="m-6">
     <form asp-controller="Users" asp-action="Create" method="post">
         @await Html.PartialAsync("_CreateOrEdit")
-        <button>Create</button>
-        <a asp-controller="Users" asp-action="Index">Cancel</a>
+        <button class="border-gray-500 border-2 p-6 m-5 rounded-lg hover:bg-green-200">Create</button>
+        <a asp-controller="Users" asp-action="Index"><button class="border-gray-500 border-2 p-6 m-5 rounded-lg hover:bg-red-200">Cancel</button></a>
     </form>
 </section>
