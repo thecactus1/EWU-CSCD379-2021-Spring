@@ -1,11 +1,30 @@
 @model List<GiftViewModel>
 
-@{int counter = 0;}
-
-@foreach(var groupViewModel in Model) {
-    <section>
-        @groupViewModel.Title <a asp-action="Edit" asp-route-id=@counter>Edit</a><form asp-action="Delete" asp-route-id=@counter method="post"><button>X</button></form>
-        @{counter++;}
-    </section>
+@{
+    int counter = 0;
+    ViewBag.Title = "Gift Index";
 }
-<a asp-action="Create">Create</a>
+
+<section class="flex flex-wrap">
+    @foreach(var gift in Model) {
+        <div class="lg:grid-cols-3 md:grid-cols-3 sm:grid-cols-1">
+            <a asp-controller="gifts" asp-action="Edit" asp-route-id=@counter>
+                <section class="border-gray-500 border-2 p-6 m-5 rounded-lg">
+                    <button>@gift.Title
+                               <br>Description: @gift.Description
+                                <br>URL: <a href=@gift.Url>@gift.Url</a>
+                                <br>UserID: @gift.UserId
+                                <br>Priority: @gift.Priority
+                    </button>
+                    <form asp-controller="groups" asp-action="Delete" asp-route-id=@counter method="post"><button onclick="return confirm('You are about to delete @gift.Title. Are you sure you want to do this?');"><i class="fa fa-trash" aria-hidden="true"></i></button></form>
+                    @{counter++;}
+                </section>
+            </a>
+        </div>
+    }
+</section>
+<a asp-action="Create">
+    <section>
+        <button class="border-gray-500 border-2 p-6 m-5 rounded-lg hover:bg-blue-200">Create</button>
+    </section>
+</a>

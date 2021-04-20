@@ -1,6 +1,9 @@
 @model List<GroupViewModel>
 
-@{int counter = 0;}
+@{
+    int counter = 0;
+    ViewBag.Title = "Group Index";
+}
 
 @foreach(var groupViewModel in Model) {
     <section>
