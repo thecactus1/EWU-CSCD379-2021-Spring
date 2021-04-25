@@ -3,3 +3,8 @@
         <Compile Include="../../SolutionSuppression.cs" />
     </ItemGroup>
 </Project>
+
+<PropertyGroup>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+</Project>
