@@ -15,7 +15,7 @@ namespace SecretSanta.Api.Controllers
 
         public UsersController(IUserRepository UserRepository)
         {
-            UserRepository = UserRepository ?? throw new ArgumentNullException(nameof(UserRepository));
+            this.UserRepository = UserRepository ?? throw new ArgumentNullException(nameof(UserRepository));
         }
 
         // /api/Users

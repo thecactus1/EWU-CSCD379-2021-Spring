@@ -6,12 +6,18 @@ using SecretSanta.Business;
 using SecretSanta.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using moq;
 
 namespace SecretSanta.Api.Tests.Controllers
 {
     [TestClass]
     public class UsersControllerTests
     {
+
+        Mock<IUserRepository> mockrepo = new Mock<IUserRepository>();
+        Mock<User> mockvaliduser = new Mock<User>();
+        Mock<User> mockinvaliduser = new Mock<User>();
+
         [TestMethod]
         //[ExpectedException(typeof(ArgumentNullException))]
         public void Constructor_WithNullUserRepository_ThrowsAppropriateException()
