@@ -18,6 +18,10 @@ namespace SecretSanta.Api.Controllers
             this.UserRepository = UserRepository ?? throw new ArgumentNullException(nameof(UserRepository));
         }
 
+        private int GetLastID(){
+            return UserRepository.List().Count+1;
+        }
+
         // /api/Users
         [HttpGet]
         public IEnumerable<User> Get()
@@ -60,6 +64,7 @@ namespace SecretSanta.Api.Controllers
             {
                 return BadRequest();
             }
+            myUser.Id=GetLastID();
             return UserRepository.Create(myUser);
         }
 
