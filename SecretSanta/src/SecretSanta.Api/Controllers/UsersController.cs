@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SecretSanta.Api.Dto;
 using SecretSanta.Business;
@@ -58,6 +59,8 @@ namespace SecretSanta.Api.Controllers
 
         // POST /api/Users
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
         public ActionResult<User?> Post([FromBody] User? myUser)
         {
             if (myUser is null)
