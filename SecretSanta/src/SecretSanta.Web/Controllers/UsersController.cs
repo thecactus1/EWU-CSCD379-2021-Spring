@@ -40,6 +40,8 @@ namespace SecretSanta.Web.Controllers
             return View();
         }
 
+        
+
         [HttpPost]
         public async Task<IActionResult> Create(UserViewModel viewModel)
         {
@@ -60,6 +62,39 @@ namespace SecretSanta.Web.Controllers
         {
             await Client.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+        
+        public async Task<IActionResult> Edit(int id)
+        {
+            UserViewModel model = ConvertFromClient(await Client.GetAsync(id));
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UserViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                UpdateUser uu = new UpdateUser(){
+                    FirstName = model.FirstName,
+                    LastName = model.LastName
+                };
+                await Client.PutAsync(model.Id, uu);
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(model);
+        }
+
+        private UserViewModel ConvertFromClient(User model){
+            UserViewModel export = new(){
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Id = model.Id
+            };
+            return export;
         }
     }
 }

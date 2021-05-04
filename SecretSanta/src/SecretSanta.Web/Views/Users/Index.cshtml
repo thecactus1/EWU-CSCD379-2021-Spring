@@ -3,7 +3,7 @@
 <section class="flex flex-wrap mb-6">
     @foreach(var userViewModel in Model) {
         <section class="w-full sm:w-1/3">
-            <a asp-action="Edit" asp-route-id=@userViewModel.Id>
+            <a asp-controller = "Users" asp-action="Edit" asp-route-id=@userViewModel.Id>
                 <section class="border-gray-500 hover:shadow-xl border-2 p-6 m-5 rounded-xl flex flex-row justify-between">
                     <div class="inline-block">@userViewModel.FirstName @userViewModel.LastName</div>
                     <form class="inline-block -mt-5 -mr-3" asp-action="Delete" asp-route-id=@userViewModel.Id method="post">
