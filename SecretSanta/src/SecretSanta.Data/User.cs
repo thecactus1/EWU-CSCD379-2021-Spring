@@ -1,4 +1,4 @@
-﻿namespace SecretSanta.Data
+namespace SecretSanta.Data
 {
     public class User
     {

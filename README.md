@@ -1,26 +1,27 @@
-In this assignment we are are going to begin work on the SecretSanta.Api project.
-For this assignment we are only going to handle users. The intent is to learn about setting up the API project, dependency inject, and tests.
+
+﻿In this assignment we are going integrate the Web project with the API project, and fix some testing failures from the last assignment.
 
 # Assignment
-- Create a UserController in the API projects
-  - Implement endpoints for:
-    - Retrieving all users ✔❌
-    - Retriving a single user by id ✔❌
-    - Creating a user ✔❌
-    - Updating a user ✔❌
-    - Deleting a user ✔❌
-  - The UserController should function. ✔❌
-  - Include a `.rest` file for interacting with the controller ([REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)). ✔❌
-- The `IUserRepository` interface is provided for you. You will need to provide an implementation of this interface within the SecretSanta.Business project. This implementation can simply store the user within a list, dictionary, array, or similar. ✔❌
-- All test projects should be within a test directory ✔❌
-- Create a unit test project for the SecretSanta.Business project. ✔❌
-  - Unit test all public methods ✔❌
-  - Ensure the project is named with a ".Tests" suffix ✔❌
-  - Ensure test class is named appropriately for the class being tested: ✔❌
-  - Name all tests in the form `<MethodBeingTested>_<ConditionBeingTested>_<ExpectedOutcome>()`. You can add  `<NoWarn>CA1707;INTL0003</NoWarn>` to remove the naming warnings. ✔❌
-- Create a Unit Test project for the SecretSanta.Api project. ✔❌
-  - Test all controller public methods. It is up to you to determine the best way to provide the controller's dependencies. ✔❌
-  - Ensure the project is named with a ".Tests" suffix ✔❌
+- Update the API project with the following
+  - Add a new Dto namespace ✔❌
+  - The `UserController` should only accept or return classes from the Dto namespace. Create any needed classes there and update the controller to use them. You will need to convert between the DTO classes and the relevant entities as needed. ✔❌
+  - Add OpenAPI (swagger) endpoint ✔❌
+  - Use the OpenAPI to generate a C# client with relevant interfaces ✔❌
+  - Decorate all relevant API endpoints in the `UserController` with the appropriate [ProducesResponseType](https://docs.microsoft.com/en-us/aspnet/core/web-api/action-return-types?view=aspnetcore-5.0#iactionresult-type) ✔❌
+- Update the Web project with the following
+  - Register the generated `UserClients` class using its interface with the Dependency Injection (DI) service. ✔❌
+  - Update the `UserController` to take in the generated client as a dependency. ✔❌
+  - Convert the `UserController` from using the `MockData` to using the client to get data from the API service. ✔❌
+  - Update the controller to convert back and forth between the ViewModel classes and the API DTO classes as needed. ✔❌
+- Update the SecretSanta.Api.Tests with the following:
+  - The controller tests should be [interation tests](https://docs.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-5.0) not unit tests. ✔❌
+  - All endpoints should be tested. ✔❌
+  - The `UserController` should use a test double for the `IUserRepository` to avoid needing to retest business and data logic. ✔❌
+- Create a new SecretSanta.Web.Tests projecs with the following:
+  - It should be inside of the test directory. ✔❌
+  - It should have nullable reference types enabled. ✔❌
+  - It should have functional tests for all endpoints in the `UserController` that access the API. ✔❌
+  - It should use a test double for the API service. This test double should be used to validate the controller's interaction with the API without actually calling the API. ✔❌
 
 Extra Credit:
-- Use a test double library like [Moq](https://www.nuget.org/packages/Moq) to provide the controller's dependencies.
+- Rather than coping data between view models and DTOs, and DTOs and entities; use [AutoMapper](https://automapper.org/) to handle it for you.
