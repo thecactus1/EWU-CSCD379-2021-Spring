@@ -21,6 +21,8 @@ In this project, we are going to configure continuous integration and continuous
 
 ## Extra Credit
 
+This is a dummy change just to have something to compare against
+
 - Have the Web Tests run against the deployed website after the deployment completes.
 - Configure the API site URL address into the Web Project during the deployment using a GitHub Action variable.
 - Configure code coverage and generate a report (see https://github.com/dotnet/docs/blob/main/docs/core/testing/unit-testing-code-coverage.md) ✔❌
