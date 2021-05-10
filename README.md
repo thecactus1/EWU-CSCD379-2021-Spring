@@ -2,9 +2,11 @@
 # Assignment 6
 
 ![Build](../../workflows/Build-Test/badge.svg)
+
 ![Deploy](../../workflows/Deploy/badge.svg)
 
 [Link to my assignment 6 branch](https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work)
+
 [Link to my deployed website](https://secretsanta-fv.azurewebsites.net)
 
 ## Overview
