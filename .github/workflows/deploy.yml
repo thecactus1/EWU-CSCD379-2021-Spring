@@ -1,0 +1,16 @@
+name: Deploy
+  
+on:
+  push:
+    branches: [ Assignment* ]
+  pull_request:
+    branches: [ Assignment* ]
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: deploy test
+      run: pwd

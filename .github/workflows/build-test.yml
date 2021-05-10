@@ -1,4 +1,4 @@
-name: Build-And-Deploy
+name: Build-Test
 
 on:
   push:
@@ -36,12 +36,3 @@ jobs:
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
-  
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: deploy test
-      run: pwd
