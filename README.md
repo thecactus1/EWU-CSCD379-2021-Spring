@@ -2,6 +2,7 @@
 # Assignment 6
 
 ![](../../workflows/Build/badge.svg)
+![](../../workflows/Deploy/badge.svg)
 
 https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work
 
