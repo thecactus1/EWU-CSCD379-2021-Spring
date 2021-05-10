@@ -39,14 +39,26 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
 
-    - name: Publish
-      working-directory: ./SecretSanta/src/SecretSanta.Web/
-      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/binSecretSanta-FV
+    - name: Publish Api
+      working-directory: ./SecretSanta/src/SecretSanta.Api/
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/binApiSecretSanta-FV
 
-    - name: Deploy to Azure
+    - name: Publish Web
+      working-directory: ./SecretSanta/src/SecretSanta.Web/
+      run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/binWebSecretSanta-FV
+
+    - name: Deploy Api to Azure
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: Api-SecretSanta-FV
+        slot-name: Production
+        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3D4EACB8F956449FA2F0BE074D105EC5 }}
+        package: ${{env.DOTNET_ROOT}}/binApiSecretSanta-FV
+
+    - name: Deploy Web to Azure
       uses: azure/webapps-deploy@v2
       with:
         app-name: SecretSanta-FV
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3D4EACB8F956449FA2F0BE074D105EC5 }}
-        package: ${{env.DOTNET_ROOT}}/binSecretSanta-FV
+        package: ${{env.DOTNET_ROOT}}/binWebSecretSanta-FV

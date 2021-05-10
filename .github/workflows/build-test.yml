@@ -17,7 +17,7 @@ jobs:
     
     steps:
     - uses: actions/checkout@v2
-    
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -35,5 +35,14 @@ jobs:
     - name: Build
       run: dotnet build --no-restore
       
-    - name: Test
+    #for some reason it's not running all tests when executing on the sln
+    #- name: Test
+    #  run: dotnet test --no-build --verbosity normal
+
+    - name: Test Api
+      working-directory: ./SecretSanta/test/SecretSanta.Api.Tests/
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Test Web
+      working-directory: ./SecretSanta/test/SecretSanta.Web.Tests/
       run: dotnet test --no-build --verbosity normal
