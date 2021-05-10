@@ -1,8 +1,8 @@
 ﻿
 # Assignment 6
 
-![Build](../../workflows/dotnet_build/badge.svg)
-![Deploy](../../workflows/dotnet_build/badge.svg?job=deploy)
+![Build](../../workflows/dotnet_build.yaml/badge.svg)
+![Deploy](../../workflows/dotnet_build.yaml/badge.svg?job=deploy)
 
 [Link to my assignment 6 branch](https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work)
 
