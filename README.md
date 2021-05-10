@@ -1,7 +1,7 @@
 ﻿
 # Assignment 6
 
-![](../../workflows/.NET/badge.svg)
+![](../../workflows/Build/badge.svg)
 
 https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work
 
