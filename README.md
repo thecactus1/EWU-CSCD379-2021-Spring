@@ -1,6 +1,10 @@
 ﻿
 # Assignment 6
 
+![](../../workflows/.NET/badge.svg)
+
+https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work
+
 ## Overview
 
 In this project, we are going to configure continuous integration and continuous deployment.
