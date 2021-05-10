@@ -1,10 +1,10 @@
 ﻿
 # Assignment 6
 
-![](../../workflows/build/badge.svg)
-![](../../workflows/deploy/badge.svg)
+![Build](../../workflows/Build/badge.svg)
+![Deploy](../../workflows/Deploy/badge.svg)
 
-https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work
+[Link to my assignment 6 branch](https://github.com/Fervidusletum/EWU-CSCD379-2021-Spring/tree/Assignment6_work)
 
 ## Overview
 
