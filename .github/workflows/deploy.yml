@@ -52,7 +52,7 @@ jobs:
       with:
         app-name: Api-SecretSanta-FV
         slot-name: Production
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3D4EACB8F956449FA2F0BE074D105EC5 }}
+        publish-profile: ${{ secrets.AZURE_APIAPP_PUBLISH_PROFILE }}
         package: ${{env.DOTNET_ROOT}}/binApiSecretSanta-FV
 
     - name: Deploy Web to Azure
