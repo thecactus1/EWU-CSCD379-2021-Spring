@@ -1,6 +1,16 @@
 ﻿
 # Assignment 6
 
+# Links
+
+
+![Build](../../workflows/Build-Test/badge.svg)
+
+![Deploy](../../workflows/Deploy/badge.svg)
+
+
+Branch URL: https://github.com/thecactus1/EWU-CSCD379-2021-Spring/tree/MJohnson-Assignment6
+
 ## Overview
 
 In this project, we are going to configure continuous integration and continuous deployment.
