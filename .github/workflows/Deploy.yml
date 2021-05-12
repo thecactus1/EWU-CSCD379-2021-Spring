@@ -13,9 +13,10 @@ jobs:
   build-and-deploy:
     name: Deploy 
     runs-on: windows-latest
-
-    run:
-      working-directory: ./SecretSanta/
+    
+    defaults:
+      run:
+        working-directory: ./SecretSanta/
 
 
     steps:
