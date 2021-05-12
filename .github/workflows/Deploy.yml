@@ -5,8 +5,9 @@ name: Deploy
 
 on:
   push:
-    branches:
-      - MJohnson-Assignment6
+    branches: [ MJohnson* ]
+  pull_request:
+    branches: [ MJohnson* ]
 
 jobs:
   build-and-deploy:
