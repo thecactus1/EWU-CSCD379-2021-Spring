@@ -6,7 +6,7 @@
 
 ![Build](../../workflows/Build/badge.svg)
 
-![Deploy](../../workflows/Deploy/badge.svg)
+![build-and-deploy](../../workflows/Deploy/badge.svg)
 
 
 Branch URL: https://github.com/thecactus1/EWU-CSCD379-2021-Spring/tree/MJohnson-Assignment6
