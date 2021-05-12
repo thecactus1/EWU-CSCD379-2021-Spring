@@ -11,12 +11,17 @@ on:
 
 jobs:
   build-and-deploy:
+    name: Deploy 
     runs-on: windows-latest
+
+    run:
+      working-directory: ./SecretSanta/
+
 
     steps:
     # checkout the repo
     - name: 'Checkout Github Action'
-      uses: actions/checkout@master
+      uses: actions/checkout@v2
 
 
     - name: Set up .NET Core
