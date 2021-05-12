@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "build:prod": "run-script-os",
     "build:dev": "webpack --mode development --watch",
-    "build:prod": "export NODE_ENV=production && webpack --mode production"
+    "build:prod:linux": "export NODE_ENV=production && webpack --mode production",
+    "build:prod:win32": "SET \"NODE_ENV=production\" & webpack --mode production",
+    "build:prod:darwin": "export NODE_ENV=production && webpack --mode production"
   },
   "author": "",
   "license": "ISC",
