@@ -4,7 +4,7 @@
 # Links
 
 
-![Build](../../workflows/Build-Test/badge.svg)
+![Build](../../workflows/Build/badge.svg)
 
 ![Deploy](../../workflows/Deploy/badge.svg)
 
