@@ -63,7 +63,7 @@ jobs:
     - name: Deploy Web
       uses: azure/webapps-deploy@v2
       with:
-        app-name: Mjohnson-SecretSanta
+        app-name: MJohnson-SecretSanta
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4AF19721583A4F03BCB316008DD48E6A }}
         package: ${{env.DOTNET_ROOT}}/binWebMjohnson-SecretSanta
