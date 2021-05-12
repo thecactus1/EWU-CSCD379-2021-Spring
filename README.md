@@ -8,7 +8,7 @@
 
 ![build-and-deploy](../../workflows/Deploy/badge.svg)
 
-
+Site URL: http://mjohnson-secretsanta1.azurewebsites.net/
 Branch URL: https://github.com/thecactus1/EWU-CSCD379-2021-Spring/tree/MJohnson-Assignment6
 
 ## Overview
