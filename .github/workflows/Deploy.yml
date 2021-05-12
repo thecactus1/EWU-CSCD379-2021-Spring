@@ -13,7 +13,7 @@ jobs:
   build-and-deploy:
     name: Deploy 
     runs-on: windows-latest
-    
+
     defaults:
       run:
         working-directory: ./SecretSanta/
@@ -57,6 +57,8 @@ jobs:
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4A66AD435B934220B734AF39C22A88A7 }}
         package:  ${{env.DOTNET_ROOT}}/binApiMjohnson-SecretSanta
+      env:
+        DOTNET_ROOT: /home/runner/.dotnet
 
     - name: Deploy Web
       uses: azure/webapps-deploy@v2
@@ -65,4 +67,7 @@ jobs:
         slot-name: Production
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4AF19721583A4F03BCB316008DD48E6A }}
         package: ${{env.DOTNET_ROOT}}/binWebMjohnson-SecretSanta
+      env:
+        DOTNET_ROOT: /home/runner/.dotnet
+        AZURE_HTTP_USER_AGENT:
 
