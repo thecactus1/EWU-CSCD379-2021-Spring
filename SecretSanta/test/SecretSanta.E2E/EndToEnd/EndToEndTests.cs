@@ -7,21 +7,21 @@ namespace SecretSanta.Web.Tests{
     [TestClass]
     public class EndToEndTests{
 
-        private static WebHostServerFixture<SecretSanta.Web.Startup, SecretSanta.Api.Startup> _Server;
+        private static WebHostServerFixture<SecretSanta.Web.Startup, SecretSanta.Api.Startup> Server;
 
         [ClassInitialize]
         public static void InitializeClass(TestContext testContext)
         {
-            _Server = new();
+            Server = new();
         }
 
         [TestMethod]
         public async Task LaunchHomepage(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
-                Headless = true,
+                Headless = false,
                 SlowMo = 250
             });
 
@@ -34,13 +34,13 @@ namespace SecretSanta.Web.Tests{
             Assert.AreEqual("SecretSanta", Header);
         }
 
-        [TestMethod]
+        // [TestMethod]
         public async Task LaunchUsers(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
-                Headless = true,
+                Headless = false,
                 SlowMo = 250
             });
 
@@ -56,7 +56,7 @@ namespace SecretSanta.Web.Tests{
 
         [TestMethod]
         public async Task LaunchGroups(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
@@ -79,7 +79,7 @@ namespace SecretSanta.Web.Tests{
 
         [TestMethod]
         public async Task LaunchGifts(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
@@ -101,7 +101,7 @@ namespace SecretSanta.Web.Tests{
 
         [TestMethod]
         public async Task AddGift(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
@@ -134,7 +134,7 @@ namespace SecretSanta.Web.Tests{
 
         [TestMethod]
         public async Task DeleteGift(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
@@ -166,7 +166,7 @@ namespace SecretSanta.Web.Tests{
 
         [TestMethod]
         public async Task ModifyGift(){
-            var localhost = _Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
+            var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
