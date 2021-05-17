@@ -45,7 +45,7 @@ namespace SecretSanta.Web.Tests{
             });
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
 
             Assert.IsTrue(response.Ok);
             await page.ClickAsync("text=Users");
@@ -65,7 +65,7 @@ namespace SecretSanta.Web.Tests{
             });
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
 
             await page.ClickAsync("text=Groups");
 
@@ -88,7 +88,7 @@ namespace SecretSanta.Web.Tests{
             });
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
 
             await page.ClickAsync("text=Gifts");
 
@@ -112,7 +112,7 @@ namespace SecretSanta.Web.Tests{
 
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
             await page.ClickAsync("text=Gifts");
 
             var gifts = await page.QuerySelectorAllAsync("body > section > section");
@@ -145,7 +145,7 @@ namespace SecretSanta.Web.Tests{
 
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
             
             await page.ClickAsync("text=Gifts");
 
@@ -177,7 +177,7 @@ namespace SecretSanta.Web.Tests{
 
 
             var page = await browser.NewPageAsync();
-            var response = await page.GoToAsync("localhost/");
+            var response = await page.GoToAsync(localhost);
             
             await page.ClickAsync("text=Gifts");
 
