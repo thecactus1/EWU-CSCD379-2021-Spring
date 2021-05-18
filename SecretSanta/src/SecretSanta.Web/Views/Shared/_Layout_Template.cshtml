@@ -1,35 +1,40 @@
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 <!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Secret Santa - @ViewBag.Title</title>
-    <!-- Stylesheets -->
-    <% for (var filename in htmlWebpackPlugin.files.css) { %>
-    <link href="~<%= htmlWebpackPlugin.files.css[filename] %>" rel="stylesheet" />
-    <% } %>
-    <!-- End Stylesheets -->
-</head>
-<body>
-    <header class="bg-gradient-to-tr from-green-500 to-red-500 text-white flex flex-col sm:flex-row justify-between p-6" x-data="SecretSanta.setupNav()">
-        <div class="flex flex-row justify-between">
-            <a class="text-2xl leading-10" asp-controller="Home" asp-action="Index">Secret Santa</a>
-            <button class="sm:hidden" @@click="toggleMenu()"><i class="fas fa-bars text-2xl align-middle h-full"></i></button>
-        </div>
-        <nav id="headerNav" class="hidden sm:inline-block">
-            <ul class="flex flex-col sm:flex-row">
-                <li class="sm:px-6 leading-10"><a asp-controller="Users" asp-action="Index">Users</a></li>
-                <li class="sm:px-6 leading-10"><a asp-controller="Groups" asp-action="Index">Groups</a></li>
-                <li class="sm:px-6 leading-10"><a asp-controller="Gifts" asp-action="Index">Gifts</a></li>
-            </ul>
-        </nav>
-    </header>
-    <section class="m-10">
-        @RenderBody()
-    </section>
-    <!-- Scripts -->
-    <% for (var index in htmlWebpackPlugin.files.js) { %>
-    <script src="~<%= htmlWebpackPlugin.files.js[index] %>"></script>
-    <% } %>
-    <!-- End Scripts -->
-</body>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Secret Santa - @ViewBag.Title</title>
+        <!-- Stylesheets -->
+        <% for (var filename in htmlWebpackPlugin.files.css) { %>
+        <link href="~<%= htmlWebpackPlugin.files.css[filename] %>" rel="stylesheet" />
+        <% } %>
+        <!-- End Stylesheets -->
+    </head>
+    <body>
+        <header class="bg-gradient-to-tr from-green-500 to-red-500 text-white flex flex-col sm:flex-row justify-between p-6" x-data="SecretSanta.setupNav()">
+            <div class="flex flex-row justify-between">
+                <a class="text-2xl leading-10" asp-controller="Home" asp-action="Index">Secret Santa</a>
+                <button class="sm:hidden" @@click="toggleMenu()"><i class="fas fa-bars text-2xl align-middle h-full"></i></button>
+            </div>
+            <nav id="headerNav" class="hidden sm:inline-block">
+                <ul class="flex flex-col sm:flex-row">
+                    <li class="sm:px-6 leading-10"><a asp-controller="Users" asp-action="Index">Users</a></li>
+                    <li class="sm:px-6 leading-10"><a asp-controller="Groups" asp-action="Index">Groups</a></li>
+                    <li class="sm:px-6 leading-10"><a asp-controller="Gifts" asp-action="Index">Gifts</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="m-10">
+            @RenderBody()
+        </section>
+        <script>
+            var apiHost = "@Configuration["ApiHost"].TrimEnd('/')";
+        </script>
+        <!-- Scripts -->
+        <% for (var index in htmlWebpackPlugin.files.js) { %>
+        <script src="~<%= htmlWebpackPlugin.files.js[index] %>"></script>
+        <% } %>
+        <!-- End Scripts -->
+    </body>
 </html>
