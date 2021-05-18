@@ -20,6 +20,14 @@ namespace SecretSanta.Web
         {
             services.AddScoped<IUsersClient, UsersClient>(_ => new UsersClient(UsersHttpClient));
             services.AddControllersWithViews();
+
+            services.AddCors(options =>{
+                options.AddDefaultPolicy(builder =>{
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

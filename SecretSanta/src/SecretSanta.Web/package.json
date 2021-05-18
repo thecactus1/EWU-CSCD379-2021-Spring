@@ -4,12 +4,12 @@
   "description": "",
   "scripts": {
     "build:dev": "webpack --mode development --watch",
-    "build:prod": "export NODE_ENV=production && webpack --mode production"
+    "build:prod": " webpack --mode production"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "alpinejs": "2.8.2",
+    "alpinejs": "^2.8.2",
     "axios": "0.21.1",
     "tailwindcss": "2.1.1"
   },

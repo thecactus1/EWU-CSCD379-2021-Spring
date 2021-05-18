@@ -40,6 +40,8 @@ namespace SecretSanta.Api
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
