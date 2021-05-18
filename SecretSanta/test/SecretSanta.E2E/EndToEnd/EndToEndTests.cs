@@ -34,13 +34,13 @@ namespace SecretSanta.Web.Tests{
             Assert.AreEqual("SecretSanta", Header);
         }
 
-        // [TestMethod]
+        [TestMethod]
         public async Task LaunchUsers(){
             var localhost = Server.WebRootUri.AbsoluteUri.Replace("127.0.0.1", "localhost");
             using var playwright = await Playwright.CreateAsync();
             await using var browser = await playwright.Chromium.LaunchAsync(new LaunchOptions
             {
-                Headless = false,
+                Headless = true,
                 SlowMo = 250
             });
 
