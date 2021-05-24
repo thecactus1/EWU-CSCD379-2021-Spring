@@ -1,11 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using SecretSanta.Data;
+using System.Linq;
 
 namespace SecretSanta.Business
 {
     public class GroupRepository : IGroupRepository
     {
+        private Random Random { get; }
+        //private static Random Random { get; } = new();
+        //private ISpeakerService Random {get;}
+        public GroupRepository(Random random)
+        {
+            Random = random ?? throw new ArgumentNullException(nameof(random));
+        }
+
         public Group Create(Group item)
         {
             if (item is null)
@@ -25,6 +34,9 @@ namespace SecretSanta.Business
             }
             return null;
         }
+
+        private Group GetRandomGroup() 
+            => MockData.Groups[Random.Next(MockData.Groups.Count)];
 
         public ICollection<Group> List()
         {
