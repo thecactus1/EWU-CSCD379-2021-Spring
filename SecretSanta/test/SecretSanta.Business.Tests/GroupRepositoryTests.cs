@@ -117,9 +117,9 @@ namespace SecretSanta.Business.Tests
         {
             GroupRepository sut = new();
 
-            AssignmentResult result = sut.GenerateAssignments(42);
+            AssignmentResult result = sut.GenerateAssignment(42);
 
-            Assert.AreEqual("Group not found", result.ErrorMessage);
+            Assert.AreEqual("Groups must have at least 3 users", result.ErrorMessage);
         }
 
         [TestMethod]
@@ -132,9 +132,9 @@ namespace SecretSanta.Business.Tests
                 Name = "Group"
             });
 
-            AssignmentResult result = sut.GenerateAssignments(42);
+            AssignmentResult result = sut.GenerateAssignment(42);
 
-            Assert.AreEqual($"Group Group must have at least three users", result.ErrorMessage);
+            Assert.AreEqual($"Groups must have at least 3 users", result.ErrorMessage);
         }
 
         [TestMethod]
@@ -150,7 +150,7 @@ namespace SecretSanta.Business.Tests
             group.Users.Add(new User { FirstName = "Jane", LastName = "Smith" });
             group.Users.Add(new User { FirstName = "Bob", LastName = "Jones" });
 
-            AssignmentResult result = sut.GenerateAssignments(42);
+            AssignmentResult result = sut.GenerateAssignment(42);
 
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(3, group.Assignments.Count);
