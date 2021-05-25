@@ -16,7 +16,7 @@ namespace SecretSanta.Api.Tests.Business
         }
 
         public AssignmentResult? AssignmentResult { get; set; }
-        public AssignmentResult Assign(int groupId)
+        public AssignmentResult GenerateAssignments(int groupId)
         {
             return AssignmentResult ?? throw new InvalidOperationException();
         }

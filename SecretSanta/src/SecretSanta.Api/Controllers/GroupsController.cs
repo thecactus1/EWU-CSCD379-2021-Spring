@@ -109,5 +109,18 @@ namespace SecretSanta.Api.Controllers
             }
             return NotFound();
         }
+
+        
+        [HttpPut("{id}/assign")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(string), (int)HttpStatusCode.BadRequest)]
+        public ActionResult GenerateAssignments(int id)
+        {
+            AssignmentResult result = GroupRepository.GenerateAssignment(id);
+
+            if (!result.IsSuccess) return BadRequest(result.ErrorMessage);
+
+            return Ok();
+        }
     }
 }
