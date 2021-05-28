@@ -80,8 +80,8 @@ namespace SecretSanta.Business.Tests
 
         [TestMethod]
         [DataRow(-1, false)]
-        [DataRow(42, true)]
-        public void Remove_WithInvalidId_ReturnsTrue(int id, bool expected)
+        [DataRow(32, true)]
+        public void Remove_WithInvalidId_ReturnsFalse_And_ValidId_ReturnsTrue(int id, bool expected)
         {
             GroupRepository sut = new();
             sut.Create(new()
