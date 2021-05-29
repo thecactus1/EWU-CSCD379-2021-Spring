@@ -13,32 +13,32 @@ namespace SecretSanta.Business.Tests
         [ExpectedException(typeof(ArgumentNullException))]
         public void Create_NullItem_ThrowsArgumentException()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
 
-            sut.Create(null!);
+            testrepo.Create(null!);
         }
 
         [TestMethod]
         public void Create_WithItem_CanGetItem()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
             Group user = new()
             {
-                Id = 42
+                Id = 32
             };
 
-            Group createdGroup = sut.Create(user);
+            Group createdGroup = testrepo.Create(user);
 
-            Group? retrievedGroup = sut.GetItem(createdGroup.Id);
+            Group? retrievedGroup = testrepo.GetItem(createdGroup.Id);
             Assert.AreEqual(user, retrievedGroup);
         }
 
         [TestMethod]
         public void GetItem_WithBadId_ReturnsNull()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
 
-            Group? user = sut.GetItem(-1);
+            Group? user = testrepo.GetItem(-1);
 
             Assert.IsNull(user);
         }
@@ -46,30 +46,30 @@ namespace SecretSanta.Business.Tests
         [TestMethod]
         public void GetItem_WithValidId_ReturnsGroup()
         {
-            GroupRepository sut = new();
-            sut.Create(new() 
+            GroupRepository testrepo = new();
+            testrepo.Create(new() 
             { 
-                Id = 42,
+                Id = 33,
                 Name = "Group",
             });
 
-            Group? user = sut.GetItem(42);
+            Group? user = testrepo.GetItem(33);
 
-            Assert.AreEqual(42, user?.Id);
+            Assert.AreEqual(33, user?.Id);
             Assert.AreEqual("Group", user!.Name);
         }
 
         [TestMethod]
         public void List_WithGroups_ReturnsAllGroup()
         {
-            GroupRepository sut = new();
-            sut.Create(new()
+            GroupRepository testrepo = new();
+            testrepo.Create(new()
             {
-                Id = 42,
+                Id = 33,
                 Name = "Group",
             });
 
-            ICollection<Group> users = sut.List();
+            ICollection<Group> users = testrepo.List();
 
             Assert.AreEqual(MockData.Groups.Count, users.Count);
             foreach(var mockGroup in MockData.Groups.Values)
@@ -83,41 +83,41 @@ namespace SecretSanta.Business.Tests
         [DataRow(32, true)]
         public void Remove_WithInvalidId_ReturnsFalse_And_ValidId_ReturnsTrue(int id, bool expected)
         {
-            GroupRepository sut = new();
-            sut.Create(new()
+            GroupRepository testrepo = new();
+            testrepo.Create(new()
             {
-                Id = 42,
+                Id = 33,
                 Name = "Group"
             });
 
-            Assert.AreEqual(expected, sut.Remove(id));
+            Assert.AreEqual(expected, testrepo.Remove(id));
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Save_NullItem_ThrowsArgumentException()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
 
-            sut.Save(null!);
+            testrepo.Save(null!);
         }
 
         [TestMethod]
         public void Save_WithValidItem_SavesItem()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
 
-            sut.Save(new Group() { Id = 42 });
+            testrepo.Save(new Group() { Id = 33 });
 
-            Assert.AreEqual(42, sut.GetItem(42)?.Id);
+            Assert.AreEqual(33, testrepo.GetItem(33)?.Id);
         }
 
         [TestMethod]
         public void GenerateAssignments_WithInvalidId_ReturnsError()
         {
-            GroupRepository sut = new();
+            GroupRepository testrepo = new();
 
-            AssignmentResult result = sut.GenerateAssignment(42);
+            AssignmentResult result = testrepo.GenerateAssignment(33);
 
             Assert.AreEqual("Groups must have at least 3 users", result.ErrorMessage);
         }
@@ -125,14 +125,14 @@ namespace SecretSanta.Business.Tests
         [TestMethod]
         public void GenerateAssignments_WithLessThanThreeUsers_ReturnsError()
         {
-            GroupRepository sut = new();
-            sut.Create(new()
+            GroupRepository testrepo = new();
+            testrepo.Create(new()
             {
-                Id = 42,
+                Id = 33,
                 Name = "Group"
             });
 
-            AssignmentResult result = sut.GenerateAssignment(42);
+            AssignmentResult result = testrepo.GenerateAssignment(33);
 
             Assert.AreEqual($"Groups must have at least 3 users", result.ErrorMessage);
         }
@@ -140,17 +140,17 @@ namespace SecretSanta.Business.Tests
         [TestMethod]
         public void GenerateAssignments_WithValidGroup_CreatesAssignments()
         {
-            GroupRepository sut = new();
-            Group group = sut.Create(new()
+            GroupRepository testrepo = new();
+            Group group = testrepo.Create(new()
             {
-                Id = 42,
+                Id = 33,
                 Name = "Group"
             });
             group.Users.Add(new User { FirstName = "John", LastName = "Doe" });
             group.Users.Add(new User { FirstName = "Jane", LastName = "Smith" });
             group.Users.Add(new User { FirstName = "Bob", LastName = "Jones" });
 
-            AssignmentResult result = sut.GenerateAssignment(42);
+            AssignmentResult result = testrepo.GenerateAssignment(33);
 
             Assert.IsTrue(result.IsSuccess);
             Assert.AreEqual(3, group.Assignments.Count);
