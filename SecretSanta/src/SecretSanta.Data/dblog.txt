@@ -1,0 +1,66 @@
+warn: 5/31/2021 21:50:23.878 CoreEventId.ConflictingShadowForeignKeysWarning[10605] (Microsoft.EntityFrameworkCore.Model) 
+      There are multiple relationships between 'User' and 'Assignment' without configured foreign key properties. This will cause Entity Framework to create shadow properties on 'User' with names dependent on the discovery order.
+dbug: 5/31/2021 21:50:23.928 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupsId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:50:23.928 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'UsersId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:50:23.928 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupId.Assignment' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:50:23.928 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'AssignmentId.User' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:50:23.928 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'AssignmentId1.User' was created in shadow state because there are no eligible CLR members with a matching name.
+info: 5/31/2021 21:50:24.009 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.6 initialized 'DbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None
+dbug: 5/31/2021 21:50:24.088 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges starting for 'DbContext'.
+dbug: 5/31/2021 21:50:24.090 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges completed for 'DbContext'.
+dbug: 5/31/2021 21:50:24.152 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'DbContext' disposed.
+warn: 5/31/2021 21:52:09.998 CoreEventId.ConflictingShadowForeignKeysWarning[10605] (Microsoft.EntityFrameworkCore.Model) 
+      There are multiple relationships between 'User' and 'Assignment' without configured foreign key properties. This will cause Entity Framework to create shadow properties on 'User' with names dependent on the discovery order.
+dbug: 5/31/2021 21:52:10.047 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupsId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:52:10.047 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'UsersId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:52:10.047 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupId.Assignment' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:52:10.047 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'AssignmentId.User' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 21:52:10.047 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'AssignmentId1.User' was created in shadow state because there are no eligible CLR members with a matching name.
+info: 5/31/2021 21:52:10.121 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.6 initialized 'DbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None
+dbug: 5/31/2021 21:52:10.211 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges starting for 'DbContext'.
+dbug: 5/31/2021 21:52:10.213 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges completed for 'DbContext'.
+dbug: 5/31/2021 21:52:10.214 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges starting for 'DbContext'.
+dbug: 5/31/2021 21:52:10.214 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges completed for 'DbContext'.
+dbug: 5/31/2021 21:52:10.274 RelationalEventId.ConnectionOpening[20000] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      Opening connection to database 'main' on server 'main.db'.
+dbug: 5/31/2021 21:52:10.285 RelationalEventId.ConnectionError[20004] (Microsoft.EntityFrameworkCore.Database.Connection) 
+      An error occurred using the connection to database 'main' on server 'main.db'.
+dbug: 5/31/2021 21:52:10.306 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'DbContext' disposed.
+dbug: 5/31/2021 22:01:43.642 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupsId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 22:01:43.642 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'UsersId.GroupUser (Dictionary<string, object>)' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 22:01:43.642 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GiverId.Assignment' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 22:01:43.642 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'GroupId.Assignment' was created in shadow state because there are no eligible CLR members with a matching name.
+dbug: 5/31/2021 22:01:43.642 CoreEventId.ShadowPropertyCreated[10600] (Microsoft.EntityFrameworkCore.Model.Validation) 
+      The property 'ReceiverId.Assignment' was created in shadow state because there are no eligible CLR members with a matching name.
+info: 5/31/2021 22:01:43.719 CoreEventId.ContextInitialized[10403] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      Entity Framework Core 5.0.6 initialized 'DbContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None
+dbug: 5/31/2021 22:01:43.796 CoreEventId.DetectChangesStarting[10800] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges starting for 'DbContext'.
+dbug: 5/31/2021 22:01:43.798 CoreEventId.DetectChangesCompleted[10801] (Microsoft.EntityFrameworkCore.ChangeTracking) 
+      DetectChanges completed for 'DbContext'.
+dbug: 5/31/2021 22:01:43.857 CoreEventId.ContextDisposed[10407] (Microsoft.EntityFrameworkCore.Infrastructure) 
+      'DbContext' disposed.
