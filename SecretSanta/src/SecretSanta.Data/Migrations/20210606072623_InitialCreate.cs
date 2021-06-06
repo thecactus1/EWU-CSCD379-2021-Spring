@@ -61,13 +61,11 @@ namespace SecretSanta.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     GiverId = table.Column<int>(type: "INTEGER", nullable: true),
                     ReceiverId = table.Column<int>(type: "INTEGER", nullable: true),
-                    GiverReciever = table.Column<string>(type: "TEXT", nullable: false),
                     GroupId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Assignment", x => x.Id);
-                    table.UniqueConstraint("AK_Assignment_GiverReciever", x => x.GiverReciever);
                     table.ForeignKey(
                         name: "FK_Assignment_Groups_GroupId",
                         column: x => x.GroupId,

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 namespace SecretSanta.Data
 {
-    public static class EventContext
+    public static class UserContext
     {
-        static EventContext()
+        static UserContext()
         {
             
         }

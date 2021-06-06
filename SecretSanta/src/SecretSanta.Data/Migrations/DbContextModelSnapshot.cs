@@ -40,10 +40,6 @@ namespace SecretSanta.Data.Migrations
                     b.Property<int?>("GiverId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("GiverReciever")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<int?>("GroupId")
                         .HasColumnType("INTEGER");
 
@@ -51,8 +47,6 @@ namespace SecretSanta.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasAlternateKey("GiverReciever");
 
                     b.HasIndex("GiverId");
 
