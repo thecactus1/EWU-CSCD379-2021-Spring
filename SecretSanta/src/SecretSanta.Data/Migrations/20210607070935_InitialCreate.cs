@@ -7,24 +7,6 @@ namespace SecretSanta.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Gifts",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Description = table.Column<string>(type: "TEXT", nullable: false),
-                    Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Priority = table.Column<int>(type: "INTEGER", nullable: false),
-                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Gifts", x => x.Id);
-                    table.UniqueConstraint("AK_Gifts_Title", x => x.Title);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Groups",
                 columns: table => new
                 {
@@ -61,7 +43,7 @@ namespace SecretSanta.Data.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     GiverId = table.Column<int>(type: "INTEGER", nullable: true),
                     ReceiverId = table.Column<int>(type: "INTEGER", nullable: true),
-                    GroupId = table.Column<int>(type: "INTEGER", nullable: true)
+                    GroupId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,7 +53,7 @@ namespace SecretSanta.Data.Migrations
                         column: x => x.GroupId,
                         principalTable: "Groups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Assignment_Users_GiverId",
                         column: x => x.GiverId,
@@ -84,6 +66,30 @@ namespace SecretSanta.Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Gifts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Title = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Url = table.Column<string>(type: "TEXT", nullable: false),
+                    Priority = table.Column<int>(type: "INTEGER", nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Gifts", x => x.Id);
+                    table.UniqueConstraint("AK_Gifts_Title", x => x.Title);
+                    table.ForeignKey(
+                        name: "FK_Gifts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,6 +130,11 @@ namespace SecretSanta.Data.Migrations
                 name: "IX_Assignment_ReceiverId",
                 table: "Assignment",
                 column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Gifts_UserId",
+                table: "Gifts",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupUser_UsersId",

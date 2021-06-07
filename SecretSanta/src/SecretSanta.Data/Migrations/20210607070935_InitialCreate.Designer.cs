@@ -9,7 +9,7 @@ using SecretSanta.Data;
 namespace SecretSanta.Data.Migrations
 {
     [DbContext(typeof(DbContext))]
-    [Migration("20210606072623_InitialCreate")]
+    [Migration("20210607070935_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace SecretSanta.Data.Migrations
                     b.Property<int?>("GiverId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("GroupId")
+                    b.Property<int>("GroupId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("ReceiverId")
@@ -86,6 +86,8 @@ namespace SecretSanta.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasAlternateKey("Title");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Gifts");
                 });
@@ -149,9 +151,11 @@ namespace SecretSanta.Data.Migrations
                         .WithMany()
                         .HasForeignKey("GiverId");
 
-                    b.HasOne("SecretSanta.Data.Group", null)
+                    b.HasOne("SecretSanta.Data.Group", "Group")
                         .WithMany("Assignments")
-                        .HasForeignKey("GroupId");
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SecretSanta.Data.User", "Receiver")
                         .WithMany()
@@ -159,12 +163,30 @@ namespace SecretSanta.Data.Migrations
 
                     b.Navigation("Giver");
 
+                    b.Navigation("Group");
+
+                    b.Navigation("Receiver");
+                });
+
+            modelBuilder.Entity("SecretSanta.Data.Gift", b =>
+                {
+                    b.HasOne("SecretSanta.Data.User", "Receiver")
+                        .WithMany("Gifts")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Receiver");
                 });
 
             modelBuilder.Entity("SecretSanta.Data.Group", b =>
                 {
                     b.Navigation("Assignments");
+                });
+
+            modelBuilder.Entity("SecretSanta.Data.User", b =>
+                {
+                    b.Navigation("Gifts");
                 });
 #pragma warning restore 612, 618
         }

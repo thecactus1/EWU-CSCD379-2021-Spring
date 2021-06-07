@@ -31,7 +31,6 @@ namespace SecretSanta.Data
                         outputTemplate: Template,
                         theme: AnsiConsoleTheme.Code)
                     .WriteTo.File("db.log",
-                        //restrictedToMinimumLevel: LogEventLevel.Information,
                         outputTemplate: Template)
                     .CreateLogger();
 
