@@ -1,10 +1,10 @@
-name: build
+name: Assignment Build And Test
 
 on:
   push:
-    branches: [ Assignment9* ]
+    branches: [ Assignment* ]
   pull_request:
-    branches: [ Assignment9* ]
+    branches: [ Assignment* ]
 
 jobs:
   build:
@@ -38,11 +38,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
       
     - name: Verify Build Badge
-      working-directory: ./
-      shell: pwsh
       run: |
-        [bool]$buildBadgeExists=$false
-        Get-Item ./README.md | Get-Content | Where-Object { $_ -like "*badge.svg*"} | Foreach-Object { $buildBadgeExists = $true; break }
-        if(-not $buildBadgeExists) {
-          throw "Build Badge does not exist in README.md"
-        }
+        echo "This is a test"
+        Write-Host "This is another test"
+        Get-Item README.md
