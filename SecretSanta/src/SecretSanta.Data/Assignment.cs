@@ -9,6 +9,8 @@ namespace SecretSanta.Data
         public User Giver { get; set; }
         public User Receiver { get; set; }
 
+        public Group Group {get; set;}
+
         private Assignment() { throw new NotSupportedException(nameof(Assignment)+"()"); }
 
         public Assignment(User giver, User receiver)

@@ -76,7 +76,7 @@ namespace SecretSanta.Data
                 new Group
                 {
                     Id = 1,
-                    Name = "IntelliTect Christmas Party"
+                    Name = "Goonsquad"
                 }
             },
             {
@@ -84,7 +84,7 @@ namespace SecretSanta.Data
                 new Group
                 {
                     Id = 2,
-                    Name = "Friends"
+                    Name = "The Band, Ghost"
                 }
             }
         };

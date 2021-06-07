@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using SecretSanta.Data;
+using System;
 
 namespace SecretSanta.Api
 {
@@ -7,8 +9,32 @@ namespace SecretSanta.Api
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            string deploy = "";
+            if(args.Length > 0){
+                deploy = args[0];
+            }
+            if(deploy == "Deploy"){
+
+                Console.WriteLine("Deploying Data...");
+                using (var dbcontext = new DbContext()){
+                    dbcontext.Database.EnsureDeleted();
+                    dbcontext.Database.EnsureCreated();
+                    foreach(User i in DbData.Users()){
+                        dbcontext.User.Add(i);
+                    }
+                    foreach(Group i in DbData.Groups()){
+                        dbcontext.Group.Add(i);
+                    }
+                    dbcontext.SaveChangesAsync();
+                    Console.WriteLine("Data Deployed! Score!");
+                }
+            }
+            var host = CreateHostBuilder(args).Build();
+
+            host.Run();
         }
+
+        
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
