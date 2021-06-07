@@ -9,5 +9,6 @@ namespace SecretSanta.Data
         public string LastName { get; set; } = "";
 
         public List<Group> Groups { get; } = new();
+        public List<Gift> Gifts { get; } = new();
     }
 }
