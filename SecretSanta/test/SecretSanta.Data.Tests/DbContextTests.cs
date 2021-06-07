@@ -11,10 +11,10 @@ namespace SecretSanta.Data.Tests
         public void AddGift()
         {
             using DbContext dbContext = new DbContext();
-            int beforeCount = dbContext.Gifts.Count();
-            dbContext.Gifts.Add(new Gift(){Id = 42, Title = "Gift", Priority = 1, UserId = 1});
+            int beforeCount = dbContext.Gift.Count();
+            dbContext.Gift.Add(new Gift(){Id = 42, Title = "Gift", Priority = 1, UserId = 1});
             dbContext.SaveChanges();
-            Assert.AreEqual<int>(beforeCount+1, dbContext.Gifts.Count());
+            Assert.AreEqual<int>(beforeCount+1, dbContext.Gift.Count());
         }
     }
 }
