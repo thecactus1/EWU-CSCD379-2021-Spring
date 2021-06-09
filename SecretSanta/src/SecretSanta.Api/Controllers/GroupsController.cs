@@ -4,6 +4,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
 using SecretSanta.Business;
+using SecretSanta.Data;
 
 namespace SecretSanta.Api.Controllers
 {
@@ -11,6 +12,7 @@ namespace SecretSanta.Api.Controllers
     [ApiController]
     public class GroupsController : ControllerBase
     {
+        private DbContext dbcontext;
         private IGroupRepository GroupRepository { get; }
         public IUserRepository UserRepository { get; }
 
