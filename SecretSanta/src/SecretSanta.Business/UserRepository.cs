@@ -7,61 +7,48 @@ namespace SecretSanta.Business
 {
     public class UserRepository : IUserRepository
     {
-        DbContext dbcontext = new DbContext();
         public User Create(User item)
         {
             if (item is null)
             {
                 throw new System.ArgumentNullException(nameof(item));
             }
-
+            using DbContext dbcontext = new DbContext();
             dbcontext.Users.Add(item);
-            dbcontext.SaveChanges();
+            dbcontext.SaveChangesAsync();
             return item;
         }
 
         public User? GetItem(int id)
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Users.Find(id);
         }
 
         public ICollection<User> List()
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Users.ToList();
         }
 
         public bool Remove(int id)
         {
+            using DbContext dbcontext = new DbContext();
             User item = dbcontext.Users.Find(id);
             if (item is null)
             {
                 return false;
             }
             dbcontext.Users.Remove(item);
-            dbcontext.SaveChanges();
+            dbcontext.SaveChangesAsync();
             return true;
         }
 
         public void Save(User item)
         {
-            if (item is null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
+            Remove(item.Id);
+            Create(item);
             
-
-            //MockData.Groups[item.Id] = item;
-            User temp = dbcontext.Users.Find(item.Id);
-            if (temp is null)
-            {
-                Create(item);
-            }
-            else
-            {
-                dbcontext.Users.Remove(dbcontext.Users.Find(item.Id));
-                Create(item);
-            }
-            dbcontext.SaveChanges();
         }
     }
 }

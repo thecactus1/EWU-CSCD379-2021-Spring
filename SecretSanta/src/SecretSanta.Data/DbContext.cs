@@ -15,8 +15,7 @@ namespace SecretSanta.Data
         public DbContext()
             : base(new DbContextOptionsBuilder<DbContext>().UseSqlite("Data Source=main.db").Options)
         {  
-            Database.EnsureDeleted();
-            Database.EnsureCreated();
+            
         }
 
         public DbSet<User> Users => Set<User>();

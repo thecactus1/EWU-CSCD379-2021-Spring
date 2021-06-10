@@ -11,10 +11,10 @@ import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, Ca
 
 export interface IGiftsClient {
     getAll(): Promise<Gift[]>;
-    post(gifts: Gift): Promise<Gift>;
+    post(gift: Gift): Promise<Gift>;
     get(id: number): Promise<Gift>;
     delete(id: number): Promise<void>;
-    put(id: number, gifts: Gift): Promise<void>;
+    put(id: number, gift: UpdateGift): Promise<void>;
 }
 
 export class GiftsClient implements IGiftsClient {
@@ -81,11 +81,11 @@ export class GiftsClient implements IGiftsClient {
         return Promise.resolve<Gift[]>(<any>null);
     }
 
-    post(gifts: Gift , cancelToken?: CancelToken | undefined): Promise<Gift> {
+    post(gift: Gift , cancelToken?: CancelToken | undefined): Promise<Gift> {
         let url_ = this.baseUrl + "/api/Gifts";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(gifts);
+        const content_ = JSON.stringify(gift);
 
         let options_ = <AxiosRequestConfig>{
             data: content_,
@@ -240,14 +240,14 @@ export class GiftsClient implements IGiftsClient {
         return Promise.resolve<void>(<any>null);
     }
 
-    put(id: number, gifts: Gift , cancelToken?: CancelToken | undefined): Promise<void> {
+    put(id: number, gift: UpdateGift , cancelToken?: CancelToken | undefined): Promise<void> {
         let url_ = this.baseUrl + "/api/Gifts/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
         url_ = url_.replace("{id}", encodeURIComponent("" + id));
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(gifts);
+        const content_ = JSON.stringify(gift);
 
         let options_ = <AxiosRequestConfig>{
             data: content_,
@@ -1072,9 +1072,9 @@ export class UsersClient implements IUsersClient {
 
 export class Gift implements IGift {
     id!: number;
-    title!: string;
-    description!: string;
-    url!: string;
+    title?: string | undefined;
+    description?: string | undefined;
+    url?: string | undefined;
     priority!: number;
     userId!: number;
 
@@ -1119,9 +1119,9 @@ export class Gift implements IGift {
 
 export interface IGift {
     id: number;
-    title: string;
-    description: string;
-    url: string;
+    title?: string | undefined;
+    description?: string | undefined;
+    url?: string | undefined;
     priority: number;
     userId: number;
 }
@@ -1192,6 +1192,62 @@ export interface IProblemDetails {
     detail?: string | undefined;
     instance?: string | undefined;
     extensions?: { [key: string]: any; } | undefined;
+}
+
+export class UpdateGift implements IUpdateGift {
+    id!: number;
+    title?: string | undefined;
+    description?: string | undefined;
+    url?: string | undefined;
+    priority!: number;
+    userId!: number;
+
+    constructor(data?: IUpdateGift) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.title = _data["title"];
+            this.description = _data["description"];
+            this.url = _data["url"];
+            this.priority = _data["priority"];
+            this.userId = _data["userId"];
+        }
+    }
+
+    static fromJS(data: any): UpdateGift {
+        data = typeof data === 'object' ? data : {};
+        let result = new UpdateGift();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["title"] = this.title;
+        data["description"] = this.description;
+        data["url"] = this.url;
+        data["priority"] = this.priority;
+        data["userId"] = this.userId;
+        return data; 
+    }
+}
+
+export interface IUpdateGift {
+    id: number;
+    title?: string | undefined;
+    description?: string | undefined;
+    url?: string | undefined;
+    priority: number;
+    userId: number;
 }
 
 export class Group implements IGroup {

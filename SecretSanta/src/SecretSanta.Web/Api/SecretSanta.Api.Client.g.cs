@@ -26,11 +26,11 @@ namespace SecretSanta.Web.Api
         System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Gift>> GetAllAsync(System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Gift> PostAsync(Gift gifts);
+        System.Threading.Tasks.Task<Gift> PostAsync(Gift gift);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Gift> PostAsync(Gift gifts, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Gift> PostAsync(Gift gift, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<Gift> GetAsync(int id);
@@ -47,11 +47,11 @@ namespace SecretSanta.Web.Api
         System.Threading.Tasks.Task DeleteAsync(int id, System.Threading.CancellationToken cancellationToken);
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task PutAsync(int id, Gift gifts);
+        System.Threading.Tasks.Task PutAsync(int id, UpdateGift gift);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task PutAsync(int id, Gift gifts, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task PutAsync(int id, UpdateGift gift, System.Threading.CancellationToken cancellationToken);
     
     }
     
@@ -155,17 +155,17 @@ namespace SecretSanta.Web.Api
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Gift> PostAsync(Gift gifts)
+        public System.Threading.Tasks.Task<Gift> PostAsync(Gift gift)
         {
-            return PostAsync(gifts, System.Threading.CancellationToken.None);
+            return PostAsync(gift, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Gift> PostAsync(Gift gifts, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Gift> PostAsync(Gift gift, System.Threading.CancellationToken cancellationToken)
         {
-            if (gifts == null)
-                throw new System.ArgumentNullException("gifts");
+            if (gift == null)
+                throw new System.ArgumentNullException("gift");
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Gifts");
@@ -176,7 +176,7 @@ namespace SecretSanta.Web.Api
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(gifts, _settings.Value));
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(gift, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
@@ -399,20 +399,20 @@ namespace SecretSanta.Web.Api
         }
     
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task PutAsync(int id, Gift gifts)
+        public System.Threading.Tasks.Task PutAsync(int id, UpdateGift gift)
         {
-            return PutAsync(id, gifts, System.Threading.CancellationToken.None);
+            return PutAsync(id, gift, System.Threading.CancellationToken.None);
         }
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task PutAsync(int id, Gift gifts, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task PutAsync(int id, UpdateGift gift, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
     
-            if (gifts == null)
-                throw new System.ArgumentNullException("gifts");
+            if (gift == null)
+                throw new System.ArgumentNullException("gift");
     
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append("api/Gifts/{id}");
@@ -424,7 +424,7 @@ namespace SecretSanta.Web.Api
             {
                 using (var request_ = new System.Net.Http.HttpRequestMessage())
                 {
-                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(gifts, _settings.Value));
+                    var content_ = new System.Net.Http.StringContent(Newtonsoft.Json.JsonConvert.SerializeObject(gift, _settings.Value));
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("PUT");
@@ -2061,16 +2061,13 @@ namespace SecretSanta.Web.Api
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
         public int Id { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Title { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Description { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Url { get; set; }
     
         [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.Always)]
@@ -2111,6 +2108,30 @@ namespace SecretSanta.Web.Api
             get { return _additionalProperties; }
             set { _additionalProperties = value; }
         }
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.3.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class UpdateGift 
+    {
+        [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Always)]
+        public int Id { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("title", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Title { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("description", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Description { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("url", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string Url { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("priority", Required = Newtonsoft.Json.Required.Always)]
+        public int Priority { get; set; }
+    
+        [Newtonsoft.Json.JsonProperty("userId", Required = Newtonsoft.Json.Required.Always)]
+        public int UserId { get; set; }
     
     
     }

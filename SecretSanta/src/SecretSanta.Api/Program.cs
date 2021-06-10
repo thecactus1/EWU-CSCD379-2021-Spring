@@ -29,7 +29,7 @@ namespace SecretSanta.Api
                     foreach(Gift i in DbData.Gifts()){
                         dbcontext.Gifts.Add(i);
                     }
-                    dbcontext.SaveChanges();
+                    dbcontext.SaveChangesAsync();
                     Console.WriteLine("Data Deployed! Score!");
                 }
             }

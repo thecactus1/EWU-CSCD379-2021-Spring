@@ -30,66 +30,6 @@ export function setupNav() {
     }
 }
 
-
-export function setupGifts() {
-    return {
-        gifts: [] as Gift[],
-        async mounted() {
-            await this.loadGifts();
-        },
-        async deleteGift(currentGift: Gift) {
-            if (confirm(`Are you sure you want to delete ${currentGift.title}?`)) {
-                var client = new UsersClient(apiHost);
-                await client.delete(currentGift.id);
-                await this.loadGifts();
-            }
-        },
-        async loadGifts() {
-            try {
-                var client = new GiftsClient(`${apiHost}`);
-                this.gifts = await client.getAll() || [];
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }
-}
-
-export function createOrUpdateGift() {
-    return {
-        gift: {} as Gift,
-        async create() {
-            try {
-                const client = new GiftsClient(apiHost);
-                await client.post(this.gift);
-                window.location.href='/gifts';
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async update() {
-            try {
-                const client = new GiftsClient(apiHost);
-                await client.put(this.gift.id, this.gift);
-                window.location.href='/gifts';
-            } catch (error) {
-                console.log(error);
-            }
-        },
-        async loadData() {
-            const pathnameSplit = window.location.pathname.split('/');
-            const id = pathnameSplit[pathnameSplit.length - 1];
-            try {
-                const client = new GiftsClient(apiHost);
-                this.gift = await client.get(+id);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    }
-}
-
-
 export function setupUsers() {
     return {
         users: [] as User[],
@@ -269,6 +209,97 @@ export function createOrUpdateGroup() {
                 }
             }
             return "";
+        }
+    }
+}
+
+export function setupGifts() {
+    return {
+        gifts: [] as Gift[],
+        allUsers: [] as User[],
+        async mounted() {
+            await this.loadGifts();
+            await this.loadUsers();
+        },
+        async deleteGift(currentGift: Gift) {
+            if (confirm(`Are you sure you want to delete ${currentGift.title}?`)) {
+                var client = new GiftsClient(apiHost);
+                await client.delete(currentGift.id);
+                await this.loadGifts();
+            }
+        },
+        async loadUsers() {
+            try {
+                var client = new UsersClient(apiHost);
+                this.allUsers = await client.getAll() || [];
+                var index = this.allUsers.findIndex(x => true);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async loadGifts() {
+            try {
+                var client = new GiftsClient(`${apiHost}`);
+                this.gifts = await client.getAll() || [];
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
+}
+
+export function createOrUpdateGift() {
+    return {
+        gift: {} as Gift,
+        allUsers: [] as User[],
+        selectedUserId: 0,
+        async create() {
+            try {
+                const client = new GiftsClient(apiHost);
+                await client.post(this.gift);
+                window.location.href='/gifts';
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async update() {
+            try {
+                const client = new GiftsClient(apiHost);
+                this.gift.userId = this.selectedUserId;
+                await client.put(this.gift.id, this.gift);
+                window.location.href='/gifts';
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async loadData() {
+            await this.loadGifts();
+            await this.loadUsers();
+        },
+        async loadDataCreate() {
+            await this.loadUsers();
+        },
+        async loadGifts() {
+            const pathnameSplit = window.location.pathname.split('/');
+            const id = pathnameSplit[pathnameSplit.length - 1];
+            try {
+                const client = new GiftsClient(apiHost);
+                this.gift = await client.get(+id);
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async loadUsers() {
+            try {
+                var client = new UsersClient(apiHost);
+                this.allUsers = await client.getAll() || [];
+                var index = this.allUsers.findIndex(x => true);
+                if (index >= 0) {
+                    this.selectedUserId = this.allUsers[index].id;
+                }
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 }

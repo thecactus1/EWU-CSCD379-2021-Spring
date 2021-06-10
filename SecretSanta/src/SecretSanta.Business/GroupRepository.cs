@@ -7,14 +7,13 @@ namespace SecretSanta.Business
 {
     public class GroupRepository : IGroupRepository
     {
-        DbContext dbcontext = new DbContext();
         public Group Create(Group item)
         {
             if (item is null)
             {
                 throw new ArgumentNullException(nameof(item));
             }
-
+            using DbContext dbcontext = new DbContext();
             dbcontext.Add<Group>(item);
             foreach (User user in item.Users)
             {
@@ -26,16 +25,19 @@ namespace SecretSanta.Business
 
         public Group? GetItem(int id)
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Groups.Find(id);
         }
 
         public ICollection<Group> List()
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Groups.ToList();
         }
 
         public bool Remove(int id)
         {
+            using DbContext dbcontext = new DbContext();
             Group group = dbcontext.Groups.Find(id);
             dbcontext.Groups.Remove(group);
             if (group is null)
@@ -54,7 +56,7 @@ namespace SecretSanta.Business
                 throw new ArgumentNullException(nameof(item));
             }
             
-
+            using DbContext dbcontext = new DbContext();
             //MockData.Groups[item.Id] = item;
             Group temp = dbcontext.Groups.Find(item.Id);
             if (temp is null)
@@ -71,6 +73,7 @@ namespace SecretSanta.Business
 
         public AssignmentResult GenerateAssignments(int groupId)
         {
+            using DbContext dbcontext = new DbContext();
             var group = dbcontext.Groups.Find(groupId);
             if (group == null)
             {
@@ -107,7 +110,7 @@ namespace SecretSanta.Business
 
         public void AddToGroup(int groupId, int userId)
         {
-            
+            using DbContext dbcontext = new DbContext();
             Group group = dbcontext.Groups.Find(groupId);
             User user = dbcontext.Users.Find(userId);
             if (group is null)
@@ -125,6 +128,7 @@ namespace SecretSanta.Business
 
         public void RemoveFromGroup(int groupId, int userId)
         {
+            using DbContext dbcontext = new DbContext();
             Group group = dbcontext.Groups.Find(groupId);
             User user = dbcontext.Users.Find(userId);
             if (group is null)

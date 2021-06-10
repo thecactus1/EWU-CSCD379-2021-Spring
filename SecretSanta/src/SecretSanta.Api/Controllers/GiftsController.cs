@@ -2,9 +2,7 @@
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using SecretSanta.Business;
-using SecretSanta.Data;
 
 namespace SecretSanta.Api.Controllers
 {
@@ -12,28 +10,25 @@ namespace SecretSanta.Api.Controllers
     [ApiController]
     public class GiftsController : ControllerBase
     {
-        private DbContext dbcontext;
-        private IGiftRepository GiftsRepository { get; }
-        public IUserRepository UserRepository { get; }
+        private IGiftRepository Repository { get; }
 
-        public GiftsController(IGiftRepository repository, IUserRepository userRepository)
+        public GiftsController(IGiftRepository repository)
         {
-            GiftsRepository = repository ?? throw new System.ArgumentNullException(nameof(repository));
-            UserRepository = userRepository ?? throw new System.ArgumentNullException(nameof(userRepository));
+            Repository = repository ?? throw new System.ArgumentNullException(nameof(repository));
         }
 
         [HttpGet]
-        public IEnumerable<Gift> Get()
+        public IEnumerable<Dto.Gift> Get()
         {
-            return GiftsRepository.List();
+            return Repository.List().Select(x => Dto.Gift.ToDto(x)!);
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Gift?> Get(int id)
+        public ActionResult<Dto.Gift?> Get(int id)
         {
-            Gift? Gifts = GiftsRepository.GetItem(id);
-            if (Gifts is null) return NotFound();
-            return Gifts;
+            Dto.Gift? Gift = Dto.Gift.ToDto(Repository.GetItem(id));
+            if (Gift is null) return NotFound();
+            return Gift;
         }
 
         [HttpDelete("{id}")]
@@ -41,7 +36,7 @@ namespace SecretSanta.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public ActionResult Delete(int id)
         {
-            if (GiftsRepository.Remove(id))
+            if (Repository.Remove(id))
             {
                 return Ok();
             }
@@ -50,24 +45,28 @@ namespace SecretSanta.Api.Controllers
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(Gift), (int)HttpStatusCode.OK)]
-        public ActionResult<Gift?> Post([FromBody] Gift Gifts)
+        [ProducesResponseType(typeof(Dto.Gift), (int)HttpStatusCode.OK)]
+        public ActionResult<Dto.Gift?> Post([FromBody] Dto.Gift Gift)
         {
-            return GiftsRepository.Create(Gifts!);
+            return Dto.Gift.ToDto(Repository.Create(Dto.Gift.FromDto(Gift)!));
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public ActionResult Put(int id, [FromBody] Gift? Gifts)
+        public ActionResult Put(int id, [FromBody] Dto.UpdateGift? Gift)
         {
-            Data.Gift? foundGifts = GiftsRepository.GetItem(id);
-            if (foundGifts is not null)
+            Data.Gift? foundGift = Repository.GetItem(id);
+            if (foundGift is not null)
             {
-                foundGifts.Title = Gifts?.Title ?? "";
-
-                GiftsRepository.Save(foundGifts);
+                foundGift.Title = Gift?.Title ?? "";
+                foundGift.Priority = Gift!.Priority;
+                foundGift.Description = Gift?.Description ?? "";
+                foundGift.Url = Gift?.Url ?? "";
+                foundGift.UserId = Gift.UserId;
+                
+                Repository.Save(foundGift);
                 return Ok();
             }
             return NotFound();

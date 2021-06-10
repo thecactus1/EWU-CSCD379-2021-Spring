@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build:prod": "run-script-os",
-    "build:dev": "webpack --mode development --watch",
+    "build:dev": "webpack --mode development",
     "build:prod:linux": "export NODE_ENV=production && webpack --mode production",
     "build:prod:win32": "SET \"NODE_ENV=production\" & webpack --mode production",
     "build:prod:darwin": "export NODE_ENV=production && webpack --mode production"

@@ -7,14 +7,14 @@ namespace SecretSanta.Business
 {
     public class GiftRepository : IGiftRepository
     {
-        DbContext dbcontext = new DbContext();
+        
         public Gift Create(Gift item)
         {
             if (item is null)
             {
                 throw new System.ArgumentNullException(nameof(item));
             }
-
+            using DbContext dbcontext = new DbContext();
             dbcontext.Gifts.Add(item);
             dbcontext.SaveChanges();
             return item;
@@ -22,16 +22,19 @@ namespace SecretSanta.Business
 
         public Gift? GetItem(int id)
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Gifts.Find(id);
         }
 
         public ICollection<Gift> List()
         {
+            using DbContext dbcontext = new DbContext();
             return dbcontext.Gifts.ToList();
         }
 
         public bool Remove(int id)
         {
+            using DbContext dbcontext = new DbContext();
             Gift item = dbcontext.Gifts.Find(id);
             if (item is null)
             {
@@ -44,24 +47,8 @@ namespace SecretSanta.Business
 
         public void Save(Gift item)
         {
-            if (item is null)
-            {
-                throw new ArgumentNullException(nameof(item));
-            }
-            
-
-            //MockData.Groups[item.Id] = item;
-            Gift temp = dbcontext.Gifts.Find(item.Id);
-            if (temp is null)
-            {
-                Create(item);
-            }
-            else
-            {
-                dbcontext.Gifts.Remove(dbcontext.Gifts.Find(item.Id));
-                Create(item);
-            }
-            dbcontext.SaveChanges();
+            Remove(item.Id);
+            Create(item);
         }
     }
 }
