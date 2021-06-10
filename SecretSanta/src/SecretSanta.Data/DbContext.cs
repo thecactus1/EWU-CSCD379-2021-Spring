@@ -19,10 +19,10 @@ namespace SecretSanta.Data
             Database.EnsureCreated();
         }
 
-        public DbSet<User> User => Set<User>();
-        public DbSet<Group> Group => Set<Group>();
+        public DbSet<User> Users => Set<User>();
+        public DbSet<Group> Groups => Set<Group>();
 
-        public DbSet<Gift> Gift => Set<Gift>();
+        public DbSet<Gift> Gifts => Set<Gift>();
         
 
         private StreamWriter LogStream { get; } = new StreamWriter("dblog.txt", append: true);
@@ -68,15 +68,14 @@ namespace SecretSanta.Data
                 .WithOne(a => a.Group);
 
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Gifts)
-                .WithOne(g => g.Reciever);
+                .HasMany(u => u.Gifts);
                 
             modelBuilder.Entity<User>()
-                .HasAlternateKey(User => new { User.FirstName, User.LastName });
+                .HasAlternateKey(Users => new { Users.FirstName, Users.LastName });
             modelBuilder.Entity<Group>()
-                .HasAlternateKey(Group => new { Group.Name});
+                .HasAlternateKey(Groups => new { Groups.Name});
             modelBuilder.Entity<Gift>()
-                .HasAlternateKey(Gift => new { Gift.Title });
+                .HasAlternateKey(Gifts => new { Gifts.Title });
 
             //modelBuilder.Entity<User>().HasData(DbData.Users());
         }

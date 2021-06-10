@@ -1,48 +1,48 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using SecretSanta.Data;
 using System.Linq;
 
 namespace SecretSanta.Business
 {
-    public class UserRepository : IUserRepository
+    public class GiftRepository : IGiftRepository
     {
         DbContext dbcontext = new DbContext();
-        public User Create(User item)
+        public Gift Create(Gift item)
         {
             if (item is null)
             {
                 throw new System.ArgumentNullException(nameof(item));
             }
 
-            dbcontext.Users.Add(item);
+            dbcontext.Gifts.Add(item);
             dbcontext.SaveChanges();
             return item;
         }
 
-        public User? GetItem(int id)
+        public Gift? GetItem(int id)
         {
-            return dbcontext.Users.Find(id);
+            return dbcontext.Gifts.Find(id);
         }
 
-        public ICollection<User> List()
+        public ICollection<Gift> List()
         {
-            return dbcontext.Users.ToList();
+            return dbcontext.Gifts.ToList();
         }
 
         public bool Remove(int id)
         {
-            User item = dbcontext.Users.Find(id);
+            Gift item = dbcontext.Gifts.Find(id);
             if (item is null)
             {
                 return false;
             }
-            dbcontext.Users.Remove(item);
+            dbcontext.Gifts.Remove(item);
             dbcontext.SaveChanges();
             return true;
         }
 
-        public void Save(User item)
+        public void Save(Gift item)
         {
             if (item is null)
             {
@@ -51,14 +51,14 @@ namespace SecretSanta.Business
             
 
             //MockData.Groups[item.Id] = item;
-            User temp = dbcontext.Users.Find(item.Id);
+            Gift temp = dbcontext.Gifts.Find(item.Id);
             if (temp is null)
             {
                 Create(item);
             }
             else
             {
-                dbcontext.Users.Remove(dbcontext.Users.Find(item.Id));
+                dbcontext.Gifts.Remove(dbcontext.Gifts.Find(item.Id));
                 Create(item);
             }
             dbcontext.SaveChanges();

@@ -55,5 +55,13 @@ namespace SecretSanta.Data{
                 
             };
         }
+        public static List<Gift> Gifts(){
+            return new List<Gift>{
+            new Gift { Id = 1, Title = "Drone", Description = "A fun little way to get a birds eye view", Url="https://www.google.com", Priority = 2, UserId = 1 },
+            new Gift { Id = 2, Title = "Rat Poison", Description = "Hopefully a way to get rid of those unusual size rodents", Url="https://www.google.com", Priority = 1, UserId = 2 },
+            //new Gift { Id = 3, Title = "Drone", Description = "A fun little way to get a birds eye view", Url="https://www.google.com", Priority = 2, UserId = 3 },
+            //new Gift { Id = 4, Title = "Rat Poison", Description = "Hopefully a way to get rid of those unusual size rodents", Url="https://www.google.com", Priority = 1, UserId = 4 },
+            };
+        }
     }   
 }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using SecretSanta.Data;
 using System;
@@ -13,19 +14,22 @@ namespace SecretSanta.Api
             if(args.Length > 0){
                 deploy = args[0];
             }
-            if(deploy == "Deploy"){
+            if(deploy == "--DeploySampleData"){
 
                 Console.WriteLine("Deploying Data...");
                 using (var dbcontext = new DbContext()){
                     dbcontext.Database.EnsureDeleted();
                     dbcontext.Database.EnsureCreated();
                     foreach(User i in DbData.Users()){
-                        dbcontext.User.Add(i);
+                        dbcontext.Users.Add(i);
                     }
                     foreach(Group i in DbData.Groups()){
-                        dbcontext.Group.Add(i);
+                        dbcontext.Groups.Add(i);
                     }
-                    dbcontext.SaveChangesAsync();
+                    foreach(Gift i in DbData.Gifts()){
+                        dbcontext.Gifts.Add(i);
+                    }
+                    dbcontext.SaveChanges();
                     Console.WriteLine("Data Deployed! Score!");
                 }
             }

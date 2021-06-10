@@ -26,23 +26,23 @@ namespace SecretSanta.Business
 
         public Group? GetItem(int id)
         {
-            return dbcontext.Group.Find(id);
+            return dbcontext.Groups.Find(id);
         }
 
         public ICollection<Group> List()
         {
-            return dbcontext.Group.ToList();
+            return dbcontext.Groups.ToList();
         }
 
         public bool Remove(int id)
         {
-            Group group = dbcontext.Group.Find(id);
-            dbcontext.Group.Remove(group);
+            Group group = dbcontext.Groups.Find(id);
+            dbcontext.Groups.Remove(group);
             if (group is null)
             {
                 return false;
             }
-            dbcontext.SaveChangesAsync();
+            dbcontext.SaveChanges();
             return true;
             
         }
@@ -53,20 +53,32 @@ namespace SecretSanta.Business
             {
                 throw new ArgumentNullException(nameof(item));
             }
+            
 
-            dbcontext.Groups[item.Id] = item;
-            dbcontext.sav
+            //MockData.Groups[item.Id] = item;
+            Group temp = dbcontext.Groups.Find(item.Id);
+            if (temp is null)
+            {
+                Create(item);
+            }
+            else
+            {
+                dbcontext.Groups.Remove(dbcontext.Groups.Find(item.Id));
+                Create(item);
+            }
+            dbcontext.SaveChanges();
         }
 
         public AssignmentResult GenerateAssignments(int groupId)
         {
-            if (!MockData.Groups.TryGetValue(groupId, out Group? group))
+            var group = dbcontext.Groups.Find(groupId);
+            if (group == null)
             {
                 return AssignmentResult.Error("Group not found");
             }
 
             Random random = new();
-            var groupUsers = new List<User>(group.Users);
+            var groupUsers = new List<User>(dbcontext.Users.ToList());
 
             if (groupUsers.Count < 3)
             {
@@ -89,14 +101,15 @@ namespace SecretSanta.Business
                 int endIndex = (i + 1) % users.Count;
                 group.Assignments.Add(new Assignment(users[i], users[endIndex]));
             }
+            dbcontext.Groups.Update(group);
             return AssignmentResult.Success();
         }
 
         public void AddToGroup(int groupId, int userId)
         {
             
-            Group group = dbcontext.Group.Find(groupId);
-            User user = dbcontext.User.Find(userId);
+            Group group = dbcontext.Groups.Find(groupId);
+            User user = dbcontext.Users.Find(userId);
             if (group is null)
             {
                 throw new ArgumentNullException(nameof(group));
@@ -112,8 +125,8 @@ namespace SecretSanta.Business
 
         public void RemoveFromGroup(int groupId, int userId)
         {
-            Group group = dbcontext.Group.Find(groupId);
-            User user = dbcontext.User.Find(userId);
+            Group group = dbcontext.Groups.Find(groupId);
+            User user = dbcontext.Users.Find(userId);
             if (group is null)
             {
                 throw new ArgumentNullException(nameof(group));
