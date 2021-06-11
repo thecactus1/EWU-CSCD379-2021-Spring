@@ -104,7 +104,7 @@ namespace SecretSanta.Api.Controllers
             {
                 if (!foundGroup.Users.Any(x => x.Id == foundUser.Id))
                 {
-                    foundGroup.Users.Add(foundUser);
+                    GroupRepository.AddToGroup(foundGroup.Id, foundUser.Id);
                     GroupRepository.Save(foundGroup);
                 }
                 return Ok();

@@ -14,12 +14,9 @@ namespace SecretSanta.Business
                 throw new ArgumentNullException(nameof(item));
             }
             using DbContext dbcontext = new DbContext();
-            dbcontext.Add<Group>(item);
-            foreach (User user in item.Users)
-            {
-                AddToGroup(item.Id, user.Id);
-            }
-            dbcontext.SaveChanges();
+
+            dbcontext.Groups.Add(item);
+            dbcontext.SaveChangesAsync();
             return item;
         }
 
@@ -44,7 +41,8 @@ namespace SecretSanta.Business
             {
                 return false;
             }
-            dbcontext.SaveChanges();
+            
+            dbcontext.SaveChangesAsync();
             return true;
             
         }
@@ -55,20 +53,8 @@ namespace SecretSanta.Business
             {
                 throw new ArgumentNullException(nameof(item));
             }
-            
-            using DbContext dbcontext = new DbContext();
-            //MockData.Groups[item.Id] = item;
-            Group temp = dbcontext.Groups.Find(item.Id);
-            if (temp is null)
-            {
-                Create(item);
-            }
-            else
-            {
-                dbcontext.Groups.Remove(dbcontext.Groups.Find(item.Id));
-                Create(item);
-            }
-            dbcontext.SaveChanges();
+            Remove(item.Id);
+            Create(item);
         }
 
         public AssignmentResult GenerateAssignments(int groupId)
@@ -111,6 +97,7 @@ namespace SecretSanta.Business
         public void AddToGroup(int groupId, int userId)
         {
             using DbContext dbcontext = new DbContext();
+                        Console.WriteLine("TRY");
             Group group = dbcontext.Groups.Find(groupId);
             User user = dbcontext.Users.Find(userId);
             if (group is null)
@@ -122,8 +109,8 @@ namespace SecretSanta.Business
                 throw new ArgumentNullException(nameof(user));
             }
             
-            group.Users.Add(user);
-            dbcontext.SaveChanges();
+            
+            dbcontext.SaveChangesAsync();
         }
 
         public void RemoveFromGroup(int groupId, int userId)
@@ -131,17 +118,17 @@ namespace SecretSanta.Business
             using DbContext dbcontext = new DbContext();
             Group group = dbcontext.Groups.Find(groupId);
             User user = dbcontext.Users.Find(userId);
+            
             if (group is null)
             {
                 throw new ArgumentNullException(nameof(group));
             }
-            if (user is null)
+            if(user is null)
             {
-                throw new ArgumentNullException(nameof(user));
-            }
+                throw new ArgumentNullException(nameof(group));
+            }            
             
             group.Users.Remove(user);
-            dbcontext.SaveChanges();
         }
     }
 }

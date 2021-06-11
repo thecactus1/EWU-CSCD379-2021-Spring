@@ -9,6 +9,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 
 import { Group, GroupsClient, User, UsersClient, Gift, GiftsClient } from '../Api/SecretSanta.Api.Client.g';
+import { debug } from 'webpack';
 
 library.add(fas, far, fab);
 dom.watch();
@@ -181,6 +182,7 @@ export function createOrUpdateGroup() {
             }
         },
         async addToGroup(currentGroupId: number) {
+            console.log(currentGroupId);
             if (this.selectedUserId <= 0) return;
             try {
                 var client = new GroupsClient(apiHost);
@@ -252,10 +254,12 @@ export function createOrUpdateGift() {
     return {
         gift: {} as Gift,
         allUsers: [] as User[],
+        allGifts: [] as Gift[],
         selectedUserId: 0,
         async create() {
             try {
                 const client = new GiftsClient(apiHost);
+                this.gift.userId = this.selectedUserId;
                 await client.post(this.gift);
                 window.location.href='/gifts';
             } catch (error) {
@@ -266,6 +270,7 @@ export function createOrUpdateGift() {
             try {
                 const client = new GiftsClient(apiHost);
                 this.gift.userId = this.selectedUserId;
+                console.log(this.gift.userId);
                 await client.put(this.gift.id, this.gift);
                 window.location.href='/gifts';
             } catch (error) {
@@ -292,10 +297,14 @@ export function createOrUpdateGift() {
         async loadUsers() {
             try {
                 var client = new UsersClient(apiHost);
+                var giftclient = new GiftsClient(apiHost);
                 this.allUsers = await client.getAll() || [];
-                var index = this.allUsers.findIndex(x => true);
+                this.allGifts = await giftclient.getAll() || [];
+                var index = this.allGifts.findIndex(x => true);
                 if (index >= 0) {
-                    this.selectedUserId = this.allUsers[index].id;
+    
+                    this.selectedUserId = this.gift.userId;
+                    console.log(index);
                 }
             } catch (error) {
                 console.log(error);
