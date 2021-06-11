@@ -74,7 +74,7 @@ namespace SecretSanta.Data
             modelBuilder.Entity<Group>()
                 .HasAlternateKey(Groups => new { Groups.Name});
             modelBuilder.Entity<Gift>()
-                .HasAlternateKey(Gifts => new { Gifts.Title });
+                .HasAlternateKey(Gifts => new { Gifts.Title, Gifts.UserId });
 
             //modelBuilder.Entity<User>().HasData(DbData.Users());
         }
