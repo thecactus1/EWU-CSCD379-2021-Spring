@@ -2,9 +2,9 @@ name: Deploy
 
 on:
   push:
-    branches: [ Assignment* ]
+    branches: [ Assignment9* ]
   pull_request:
-    branches: [ Assignment* ]
+    branches: [ Assignment9* ]
 
 jobs:
   build-and-deploy:
