@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
@@ -85,7 +86,7 @@ namespace SecretSanta.Api.Controllers
                 if (foundGroup.Users.FirstOrDefault(x => x.Id == userId) is { } user)
                 {
                     foundGroup.Users.Remove(user);
-                    GroupRepository.Save(foundGroup);
+                    //GroupRepository.Save(foundGroup);
                 }
                 return Ok();
             }
@@ -98,14 +99,15 @@ namespace SecretSanta.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public ActionResult Add(int id, [FromBody] int userId)
         {
+            Console.WriteLine(id);
             Data.Group? foundGroup = GroupRepository.GetItem(id);
             Data.User? foundUser = UserRepository.GetItem(userId);
             if (foundGroup is not null && foundUser is not null)
             {
                 if (!foundGroup.Users.Any(x => x.Id == foundUser.Id))
                 {
-                    GroupRepository.AddToGroup(foundGroup.Id, foundUser.Id);
-                    GroupRepository.Save(foundGroup);
+                    foundGroup.Users.Add(foundUser);
+                    //GroupRepository.Save(foundGroup);
                 }
                 return Ok();
             }

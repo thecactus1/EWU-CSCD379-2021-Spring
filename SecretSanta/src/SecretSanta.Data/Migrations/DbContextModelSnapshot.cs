@@ -83,7 +83,7 @@ namespace SecretSanta.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasAlternateKey("Title");
+                    b.HasAlternateKey("Title", "UserId");
 
                     b.HasIndex("UserId");
 
@@ -105,6 +105,21 @@ namespace SecretSanta.Data.Migrations
                     b.HasAlternateKey("Name");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("SecretSanta.Data.GroupUser", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("GroupId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("GroupUsers");
                 });
 
             modelBuilder.Entity("SecretSanta.Data.User", b =>
@@ -173,6 +188,25 @@ namespace SecretSanta.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SecretSanta.Data.GroupUser", b =>
+                {
+                    b.HasOne("SecretSanta.Data.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SecretSanta.Data.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Group");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("SecretSanta.Data.Group", b =>

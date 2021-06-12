@@ -20,7 +20,7 @@ namespace SecretSanta.Data
 
         public DbSet<User> Users => Set<User>();
         public DbSet<Group> Groups => Set<Group>();
-
+        public DbSet<GroupUser> GroupUsers => Set<GroupUser>();
         public DbSet<Gift> Gifts => Set<Gift>();
         
 
@@ -69,14 +69,36 @@ namespace SecretSanta.Data
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Gifts);
                 
+                
             modelBuilder.Entity<User>()
                 .HasAlternateKey(Users => new { Users.FirstName, Users.LastName });
             modelBuilder.Entity<Group>()
                 .HasAlternateKey(Groups => new { Groups.Name});
             modelBuilder.Entity<Gift>()
                 .HasAlternateKey(Gifts => new { Gifts.Title, Gifts.UserId });
+            modelBuilder.Entity<GroupUser>()
+                .HasKey(item => new {item.GroupId, item.UserId});
 
             //modelBuilder.Entity<User>().HasData(DbData.Users());
+        }
+        
+        public static void DeploySampleData(){
+            Console.WriteLine("Deploying Data...");
+            using (var dbcontext = new Data.DbContext()){
+                dbcontext.Database.EnsureDeleted();
+                dbcontext.Database.EnsureCreated();
+                foreach(User i in DbData.Users()){
+                    dbcontext.Users.Add(i);
+                }
+                foreach(Group i in DbData.Groups()){
+                    dbcontext.Groups.Add(i);
+                }
+                foreach(Gift i in DbData.Gifts()){
+                    dbcontext.Gifts.Add(i);
+                }
+                dbcontext.SaveChangesAsync();
+                Console.WriteLine("Data Deployed! Score!");
+            }
         }
     }
 }

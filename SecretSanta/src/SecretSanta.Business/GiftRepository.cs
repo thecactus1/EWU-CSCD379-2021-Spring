@@ -16,7 +16,7 @@ namespace SecretSanta.Business
             }
             using DbContext dbcontext = new DbContext();
             dbcontext.Gifts.Add(item);
-            dbcontext.SaveChanges();
+            dbcontext.SaveChangesAsync();
             return item;
         }
 
@@ -41,7 +41,7 @@ namespace SecretSanta.Business
                 return false;
             }
             dbcontext.Gifts.Remove(item);
-            dbcontext.SaveChanges();
+            dbcontext.SaveChangesAsync();
             return true;
         }
 
