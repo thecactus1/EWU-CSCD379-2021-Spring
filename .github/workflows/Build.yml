@@ -7,7 +7,7 @@ on:
     branches: [ Assignment9* ]
 
 jobs:
-  build:
+  Build:
     defaults:
       run:
         working-directory: ./SecretSanta/
