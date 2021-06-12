@@ -1,5 +1,9 @@
 ﻿# Assignment 9 & 10
 
+![Build](../../workflows/Build-Test/badge.svg)
+
+![Deploy](../../workflows/Deploy/badge.svg)
+
 ## Overview
 
 In this assignment we are going to build "complete" the SecretSanta project. As discussed in class on Thursday, you have two weeks to complete the assignment which is worth "double the points".
